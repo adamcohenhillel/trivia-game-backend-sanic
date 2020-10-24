@@ -28,7 +28,9 @@ You can run a simple terminal client from `/examples/basic_interact.py`
 > To start a game match , you need to run 2 clients!
 
 ## System Architecture
+##### high-level Architecture
 ![Architecture](/images/architecture.png)
+> The following explanation
 
 ## Production suggestions
 > using the following suggestions, this backend was able to scale to more than 10,000 connected users simultaneously
