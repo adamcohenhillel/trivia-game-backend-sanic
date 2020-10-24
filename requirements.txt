@@ -1,0 +1,9 @@
+asyncio
+sanic
+tortoise-orm
+aiosqlite
+aioredis
+pyjwt
+jsonschema
+requests
+pytest-sanic
