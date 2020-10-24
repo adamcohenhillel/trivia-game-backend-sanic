@@ -1,7 +1,7 @@
 Trivia game backend using Sanic
 ===============================
 
-Backend for online trivia game which provide users system, game match making, and gameplay. The server has been developed using [Sanic](https://github.com/huge-success/sanic) and [Redis](https://redis.io/) and implements a unique architecture to handle large amount of online users (see [System Architecture](##system-architecture) section below).
+Backend for online trivia game which provide users system, game match making, and gameplay. The server has been developed using [Sanic](https://github.com/huge-success/sanic) and [Redis](https://redis.io/) and implements a unique architecture to handle large amount of online users (see [System Architecture](#system-architecture) section below).
 
 Support: Python3.6+
 
@@ -31,7 +31,7 @@ Login: /auth/register
     
 
 ## System Architecture
-sadasdasdasd
+![Architecture](/images/architecture.png)
 
 ## Production suggestions
 > using the following suggestions, this backend was able to scale to more than 10,000 connected users simultaneously
