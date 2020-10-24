@@ -2,18 +2,43 @@ import asyncio
 import websockets
 import json
 import random
+import requests
 
-import utils
+import consts
 
 
-async def nested_terminal_client(name, password, debug=True):
+async def register_new_user(username, password):
+    """Try to register and get accerss token"""
+    email = f"{username}@gmail.com"
+
+    try:
+        response = requests.post(consts.REGISTER_URL, json={"username": username,
+                                                            "password": password,
+                                                            "password_confirmation": password,
+                                                            "email": email}).json()
+        print("You registered! run again and play!")
+    except Exception:
+        print("Can't register user")
+
+
+async def get_access_token(username, password):
+    """Try to login and get accerss token"""
+    try:
+        response = requests.post(consts.LOGIN_URL, json={"username": username,
+                                                        "password": password}).json()
+        return response["token"]
+    except:
+        return None
+
+
+async def play(username, password, debug=True):
     """Note: this client is for testing only. it's not fully async and not error-safe
     """
-    access_token = await utils.get_login_access(name, password)
+    access_token = await get_access_token(username, password)
 
     if access_token:
         authorize_header = {"Authorization": access_token}
-        async with websockets.connect(utils.WEBSOCKET_URL,
+        async with websockets.connect(consts.WEBSOCKET_URL,
                                       extra_headers=authorize_header) as websocket:
             
             print("Waiting for match...") and debug
@@ -70,12 +95,26 @@ async def nested_terminal_client(name, password, debug=True):
 
 
 def main():
-    print("Please login:")
-    name = input("name >")
-    password = input("password >")
-
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(nested_terminal_client(name, password))
+
+    command = input("What you want to do? (register / play) > ")
+    while command not in ["register", "play"]:
+        command = input("Command must be register OR play > ")
+    
+    if command == "register":
+        name = input("username >")
+        password = input("password >")
+        r_password = input("repeat password >")
+        while r_password != password:
+            print("Passwords not match! Try again:")
+            password = input("password >")
+            r_password = input("repeat password >")
+        loop.run_until_complete(register_new_user(name, password))
+        
+    else:
+        username = input("username >")
+        password = input("password >")
+        loop.run_until_complete(play(username, password))
 
 
 if __name__ == "__main__":

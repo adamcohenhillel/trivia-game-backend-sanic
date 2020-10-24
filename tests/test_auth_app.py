@@ -132,4 +132,3 @@ def test_user_update_win_bad_token():
     _, response = app.test_client.put("/auth/user/adam", headers=authorize_header)
     assert response.status == 401
     assert "error" in response.json
-

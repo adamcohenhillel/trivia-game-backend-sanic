@@ -89,4 +89,3 @@ async def ws_publisher(ws, redis_conn, game_channel, username):
 
         elif data["type"] == MessageType.EMOJI:
             await redis_conn.publish_json(game_channel, data)
-

@@ -96,4 +96,3 @@ async def leaderboard(request, payload):
         return json({"users": [{u.username: u.wins} for u in top]})
     except Exception:
         return json({"error": "Not Available"}, status=503)
-    

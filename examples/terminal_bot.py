@@ -3,15 +3,16 @@ import websockets
 import json
 import random
 
-import utils
+import consts
+from examples.basic_interact import get_access_token
 
 
 async def nested_terminal_bot(name, password, debug=True):
-    access_token = await utils.get_login_access(name, password)
+    access_token = await get_access_token(name, password)
 
     if access_token:
         authorize_header = {"Authorization": access_token}
-        async with websockets.connect(utils.WEBSOCKET_URL,
+        async with websockets.connect(consts.WEBSOCKET_URL,
                                       extra_headers=authorize_header) as websocket:
             
             game_details = json.loads(await websocket.recv())
@@ -60,8 +61,8 @@ async def nested_terminal_bot(name, password, debug=True):
 
 
 def main():
-    print("Please login:")
-    name = input("name >")
+    print("Bot must be logged in:")
+    name = input("username >")
     password = input("password >")
 
     loop = asyncio.get_event_loop()

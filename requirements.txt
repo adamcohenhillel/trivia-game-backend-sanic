@@ -7,3 +7,4 @@ pyjwt
 jsonschema
 requests
 pytest-sanic
+websockets
