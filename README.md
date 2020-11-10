@@ -45,7 +45,7 @@ In the Quick Start section above we run the backend app using the command `pytho
     
     uvicorn main:app
 
-> We can use ASGI alone without WSGI because we don't serve static files at all
+> We can use ASGI (uvicorn) alone without traditional web server because we don't serve static files, but it can help if we had a load balancer in front of it
 
 #### 2. Redis server
 > Only if the redis server run on the same machine as the Sanic app!
